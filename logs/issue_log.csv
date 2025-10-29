@@ -1,0 +1,63 @@
+timestamp,failure_state,reason
+2025-10-29T09:42:12.542590,deployment_failure,Last deployment attempt failed.
+2025-10-29T09:42:20.411985,anomaly_health,High heart rate detected (150).
+2025-10-29T09:43:03.608821,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T09:43:27.478604,anomaly_health,High heart rate detected (150).
+2025-10-29T09:43:47.058024,deployment_failure,Last deployment attempt failed.
+2025-10-29T09:44:06.838083,anomaly_health,High heart rate detected (150).
+2025-10-29T09:44:45.239676,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T09:45:03.728564,anomaly_health,High heart rate detected (150).
+2025-10-29T09:47:14.159171,deployment_failure,Last deployment attempt failed.
+2025-10-29T09:47:32.044859,anomaly_health,High heart rate detected (150).
+2025-10-29T09:48:04.553880,deployment_failure,Last deployment attempt failed.
+2025-10-29T09:48:46.160960,anomaly_health,High heart rate detected (150).
+2025-10-29T09:49:05.742351,deployment_failure,Last deployment attempt failed.
+2025-10-29T09:49:39.192548,anomaly_health,High heart rate detected (150).
+2025-10-29T09:50:16.615912,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T09:50:33.880382,anomaly_health,High heart rate detected (150).
+2025-10-29T09:59:27.762185,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T10:05:01.531084,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:05:57.048299,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T10:06:56.633570,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:09:07.717906,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T10:26:36.205497,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:27:53.159879,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:36:36.800843,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:37:20.600575,anomaly_health,High heart rate detected (150).
+2025-10-29T10:37:52.385009,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:38:29.063218,anomaly_health,High heart rate detected (150).
+2025-10-29T10:38:47.198571,deployment_failure,Last deployment attempt failed.
+2025-10-29T10:39:04.029396,anomaly_health,High heart rate detected (150).
+2025-10-29T10:39:41.039118,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T10:39:45.965385,anomaly_health,High heart rate detected (150).
+2025-10-29T11:19:41.831391,deployment_failure,Last deployment attempt failed.
+2025-10-29T11:57:54.102441,deployment_failure,Last deployment attempt failed.
+2025-10-29T12:31:11.052459,deployment_failure,Last deployment attempt failed.
+2025-10-29T14:13:30.647703,deployment_failure,Last deployment attempt failed.
+2025-10-29T14:57:05.279914,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:20:51.488587,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:24:28.195943,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:25:13.568874,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:34:45.914196,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:43:53.387224,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:50:23.815304,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:51:01.494706,anomaly_health,High heart rate detected (150).
+2025-10-29T15:53:41.803165,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:54:10.920689,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:54:45.664012,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:55:02.035290,anomaly_health,High heart rate detected (150).
+2025-10-29T15:55:35.369375,anomaly_health,High heart rate detected (150).
+2025-10-29T15:56:06.836197,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:56:40.098680,anomaly_health,High heart rate detected (150).
+2025-10-29T15:57:13.230216,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:57:50.886480,anomaly_health,High heart rate detected (150).
+2025-10-29T15:58:17.233788,deployment_failure,Last deployment attempt failed.
+2025-10-29T15:58:37.603112,anomaly_health,High heart rate detected (150).
+2025-10-29T15:59:14.788724,latency_issue,High latency detected: 20000.00 ms.
+2025-10-29T15:59:17.140626,anomaly_health,High heart rate detected (150).
+2025-10-29T16:03:10.669087,deployment_failure,Last deployment attempt failed.
+2025-10-29T16:03:57.544607,anomaly_health,High heart rate detected (150).
+2025-10-29T16:04:59.381058,deployment_failure,Last deployment attempt failed.
+2025-10-29T16:05:55.973731,anomaly_health,High heart rate detected (150).
+2025-10-29T16:06:56.597509,deployment_failure,Last deployment attempt failed.
+2025-10-29T16:16:45.413227,deployment_failure,Last deployment attempt failed.
