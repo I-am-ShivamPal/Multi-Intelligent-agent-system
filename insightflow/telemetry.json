@@ -1,0 +1,98 @@
+[
+  {
+    "timestamp": "2025-10-29T13:32:48.408358",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:33:20.082223",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:35:05.084023",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:46:59.609832",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:47:33.832042",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:49:37.827138",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:49:57.871577",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T13:50:45.395179",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T14:01:00.265608",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T14:09:33.853428",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T14:11:15.290496",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T14:11:50.541442",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T15:58:07.281223",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T16:41:02.805610",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T16:42:02.985606",
+    "dashboard_mode": "Developer Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-10-29T16:42:41.460824",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  }
+]

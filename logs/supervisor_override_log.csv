@@ -1,0 +1,5 @@
+timestamp,event_type,status,details
+2025-10-29 13:49:09.505094,Manual Override,Force Heal,Supervisor-initiated action
+2025-10-29 13:49:15.361267,Manual Override,Force Heal,Supervisor-initiated action
+2025-10-29 13:49:25.395653,Manual Override,Force Restart,Supervisor-initiated action
+2025-10-29 13:49:48.512665,Manual Override,Force Restart,Supervisor-initiated action

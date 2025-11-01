@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  agents:
+    build: .
+    container_name: cicd-agents
+    environment:
+      - DATASET_PATH=${DATASET_PATH}
+      - PLANNER_TYPE=${PLANNER_TYPE}
+    volumes:
+      - ${LOGS_DIR}:/app/logs
+      - ${DATA_DIR}:/app/dataset
+      - ${INSIGHTFLOW_DIR}:/app/insightflow
+    command: python main.py --dataset ${DATASET_PATH} --planner ${PLANNER_TYPE}
+    networks:
+      - cicd-network
+
+  dashboard:
+    build: .
+    container_name: cicd-dashboard
+    ports:
+      - "${DASHBOARD_PORT}:8501"
+    environment:
+      - DASHBOARD_AUTO_REFRESH=${DASHBOARD_AUTO_REFRESH}
+    volumes:
+      - ${LOGS_DIR}:/app/logs
+      - ${INSIGHTFLOW_DIR}:/app/insightflow
+    command: python -m streamlit run dashboard/dashboard.py --server.port=8501 --server.address=0.0.0.0
+    depends_on:
+      - agents
+    networks:
+      - cicd-network
+
+  mcp-endpoints:
+    build: .
+    container_name: cicd-mcp
+    ports:
+      - "${MCP_PORT}:8080"
+    environment:
+      - MCP_HOST=${MCP_HOST}
+      - MCP_PORT=${MCP_PORT}
+    volumes:
+      - ${LOGS_DIR}:/app/logs
+    command: python mcp_endpoints.py
+    depends_on:
+      - agents
+    networks:
+      - cicd-network
+
+networks:
+  cicd-network:
+    driver: bridge
+
+volumes:
+  logs:
+  insightflow:
