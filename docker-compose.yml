@@ -1,33 +1,17 @@
 version: '3.8'
 
 services:
-  agents:
-    build: .
-    container_name: cicd-agents
-    environment:
-      - DATASET_PATH=${DATASET_PATH}
-      - PLANNER_TYPE=${PLANNER_TYPE}
-    volumes:
-      - ${LOGS_DIR}:/app/logs
-      - ${DATA_DIR}:/app/dataset
-      - ${INSIGHTFLOW_DIR}:/app/insightflow
-    command: python main.py --dataset ${DATASET_PATH} --planner ${PLANNER_TYPE}
-    networks:
-      - cicd-network
-
   dashboard:
     build: .
     container_name: cicd-dashboard
     ports:
-      - "${DASHBOARD_PORT}:8501"
+      - "8501:8501"
     environment:
-      - DASHBOARD_AUTO_REFRESH=${DASHBOARD_AUTO_REFRESH}
+      - DASHBOARD_AUTO_REFRESH=true
     volumes:
-      - ${LOGS_DIR}:/app/logs
-      - ${INSIGHTFLOW_DIR}:/app/insightflow
-    command: python -m streamlit run dashboard/dashboard.py --server.port=8501 --server.address=0.0.0.0
-    depends_on:
-      - agents
+      - ./logs:/app/logs
+      - ./insightflow:/app/insightflow
+    command: streamlit run dashboard/dashboard.py --server.port=8501 --server.address=0.0.0.0
     networks:
       - cicd-network
 
@@ -35,15 +19,29 @@ services:
     build: .
     container_name: cicd-mcp
     ports:
-      - "${MCP_PORT}:8080"
+      - "8080:8080"
     environment:
-      - MCP_HOST=${MCP_HOST}
-      - MCP_PORT=${MCP_PORT}
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8080
     volumes:
-      - ${LOGS_DIR}:/app/logs
+      - ./logs:/app/logs
     command: python mcp_endpoints.py
+    networks:
+      - cicd-network
+
+  agents:
+    build: .
+    container_name: cicd-agents
+    environment:
+      - DATASET_PATH=dataset/student_scores.csv
+      - PLANNER_TYPE=rl
+    volumes:
+      - ./logs:/app/logs
+      - ./dataset:/app/dataset
+      - ./insightflow:/app/insightflow
+    command: python main.py --dataset dataset/student_scores.csv --planner rl
     depends_on:
-      - agents
+      - mcp-endpoints
     networks:
       - cicd-network
 
