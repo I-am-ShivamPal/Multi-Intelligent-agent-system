@@ -44,6 +44,7 @@ A production-ready multi-agent system that simulates CI/CD operations with intel
 
 ## 🚀 Quick Start
 
+<<<<<<< HEAD
 ### Docker Deployment (Recommended)
 
 ```bash
@@ -56,6 +57,9 @@ docker-compose up --build -d
 ```
 
 ### Local Installation
+=======
+### Installation
+>>>>>>> bf5d865764ae1ecce39c2ccfe2ddcbe7ec5dd88c
 
 ```bash
 pip install -r requirements.txt
@@ -155,6 +159,7 @@ python quick_validation.py
 - ✅ HTTP endpoints for external integration
 - ✅ File-based event persistence
 
+<<<<<<< HEAD
 ### Day 6: Containerization + Infrastructure ✅
 - ✅ Docker containerization for all services
 - ✅ Multi-service orchestration with docker-compose
@@ -163,6 +168,8 @@ python quick_validation.py
 - ✅ Cross-platform deployment scripts
 - ✅ Production-ready infrastructure setup
 
+=======
+>>>>>>> bf5d865764ae1ecce39c2ccfe2ddcbe7ec5dd88c
 ## 🎯 Key Learning Outcomes
 
 1. **Anomaly Detection**: Statistical thresholds for data quality
@@ -173,8 +180,11 @@ python quick_validation.py
 6. **Event-Driven Architecture**: Scalable cross-process communication
 7. **Real-time Monitoring**: Live system observability
 8. **Team Collaboration**: Interface design and integration patterns
+<<<<<<< HEAD
 9. **Containerization**: Production-ready deployment with Docker
 10. **Infrastructure as Code**: Orchestrated multi-service architecture
+=======
+>>>>>>> bf5d865764ae1ecce39c2ccfe2ddcbe7ec5dd88c
 
 ## 📈 Enhanced Dashboard Features
 
@@ -261,6 +271,7 @@ THRESHOLDS = {
 
 The system learns optimal strategies over multiple runs, incorporating both system outcomes and user preferences.
 
+<<<<<<< HEAD
 ## 🐳 Containerization
 
 ### Services
@@ -273,6 +284,8 @@ The system learns optimal strategies over multiple runs, incorporating both syst
 - Override with `docker-compose.override.yml`
 - Persistent volumes for logs and data
 
+=======
+>>>>>>> bf5d865764ae1ecce39c2ccfe2ddcbe7ec5dd88c
 ## 🏆 Success Metrics
 
 - **Uptime Percentage**: System availability (95%+ target)
