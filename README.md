@@ -96,14 +96,21 @@ python train_rl.py
 python show_qtable.py
 ```
 
-### Launch Enhanced Dashboard
+### Launch Dashboard
 
 ```bash
+# Test dashboard data first
+python test_dashboard.py
+
 # Enhanced dashboard with real-time features
 python run_enhanced_dashboard.py
 
-# Or standard Streamlit launch
+# Simple web dashboard (cloud-optimized)
+python run_web_dashboard.py
+
+# Or direct Streamlit launch
 streamlit run dashboard/dashboard.py
+streamlit run web_dashboard.py
 ```
 
 ### Real-time Monitoring
