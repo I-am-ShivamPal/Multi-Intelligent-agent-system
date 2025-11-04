@@ -15,6 +15,17 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Force sidebar to be visible
+st.markdown(
+    """
+    <style>
+    .css-1d391kg {width: 100% !important;}
+    .css-1lcbmhc {width: 300px !important;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- Initialize Directories ---
 os.makedirs("logs", exist_ok=True)
 os.makedirs("insightflow", exist_ok=True)
@@ -105,19 +116,25 @@ performance_view = st.sidebar.selectbox(
     ["Student Scores", "Patient Health"]
 )
 
-st.sidebar.subheader("Supervisor Override")
-manual_action = st.sidebar.selectbox("Action:", ["None", "Force Heal", "Force Restart"])
-if st.sidebar.button("Apply Override"):
-    override_entry = {
-        'timestamp': pd.Timestamp.now(),
-        'event_type': 'Manual Override',
-        'status': manual_action,
-        'details': 'Supervisor action'
-    }
-    override_df = pd.DataFrame([override_entry])
-    override_df.to_csv("logs/supervisor_override_log.csv", mode='a', 
-                      header=not os.path.exists("logs/supervisor_override_log.csv"), index=False)
-    st.sidebar.success(f"Override '{manual_action}' applied")
+st.sidebar.markdown("---")
+st.sidebar.subheader("🔧 Supervisor Override")
+st.sidebar.info("Manual system control for emergencies")
+manual_action = st.sidebar.selectbox("Override Action:", ["None", "Force Heal", "Force Restart", "Emergency Stop"])
+if st.sidebar.button("🚨 Apply Override", type="primary"):
+    if manual_action != "None":
+        override_entry = {
+            'timestamp': pd.Timestamp.now(),
+            'event_type': 'Manual Override',
+            'status': manual_action,
+            'details': 'Supervisor-initiated action'
+        }
+        override_df = pd.DataFrame([override_entry])
+        override_df.to_csv("logs/supervisor_override_log.csv", mode='a', 
+                          header=not os.path.exists("logs/supervisor_override_log.csv"), index=False)
+        st.sidebar.success(f"✅ Override '{manual_action}' applied successfully!")
+        st.sidebar.balloons()
+    else:
+        st.sidebar.warning("Please select an action first")
 
 # --- MAIN DASHBOARD ---
 st.title("🔍 InsightFlow Dashboard")
