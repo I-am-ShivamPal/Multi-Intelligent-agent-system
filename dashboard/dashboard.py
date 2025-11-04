@@ -15,94 +15,15 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Initialize Sample Data for Render ---
-def init_sample_data():
-    os.makedirs("logs", exist_ok=True)
-    os.makedirs("insightflow", exist_ok=True)
-    os.makedirs("dataset", exist_ok=True)
-    
-    # Sample deployment log
-    if not os.path.exists("logs/deployment_log.csv"):
-        deploy_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=20, freq="H"),
-            "dataset": ["student_scores.csv"] * 20,
-            "status": np.random.choice(["success", "failure"], 20, p=[0.8, 0.2]),
-            "latency_ms": np.random.randint(800, 3000, 20),
-            "action_type": ["deploy"] * 20
-        })
-        deploy_data.to_csv("logs/deployment_log.csv", index=False)
-    
-    # Sample uptime log
-    if not os.path.exists("logs/uptime_log.csv"):
-        uptime_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=15, freq="2H"),
-            "status": np.random.choice(["UP", "DOWN"], 15, p=[0.9, 0.1]),
-            "event": ["System check"] * 15
-        })
-        uptime_data.to_csv("logs/uptime_log.csv", index=False)
-    
-    # Sample healing log
-    if not os.path.exists("logs/healing_log.csv"):
-        healing_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=10, freq="4H"),
-            "failure_state": np.random.choice(["deployment_failure", "latency_issue"], 10),
-            "strategy": np.random.choice(["retry", "restore", "adjust"], 10),
-            "status": np.random.choice(["success", "failure"], 10, p=[0.7, 0.3]),
-            "latency_ms": np.random.randint(500, 2000, 10)
-        })
-        healing_data.to_csv("logs/healing_log.csv", index=False)
-    
-    # Sample Q-table
-    if not os.path.exists("logs/rl_log.csv"):
-        qtable_data = pd.DataFrame({
-            "retry": [0.5, 0.3, 0.8],
-            "restore": [0.7, 0.4, 0.2],
-            "adjust": [0.2, 0.9, 0.6]
-        }, index=["deployment_failure", "latency_issue", "data_anomaly"])
-        qtable_data.to_csv("logs/rl_log.csv")
-    
-    # Sample student scores
-    if not os.path.exists("dataset/student_scores.csv"):
-        scores_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=30, freq="D"),
-            "score": np.random.randint(60, 100, 30)
-        })
-        scores_data.to_csv("dataset/student_scores.csv", index=False)
-    
-    # Sample patient health
-    if not os.path.exists("dataset/patient_health.csv"):
-        health_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=25, freq="D"),
-            "heart_rate": np.random.randint(60, 120, 25),
-            "oxygen_level": np.random.randint(90, 100, 25)
-        })
-        health_data.to_csv("dataset/patient_health.csv", index=False)
-    
-    # Sample issue log
-    if not os.path.exists("logs/issue_log.csv"):
-        issue_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=8, freq="6H"),
-            "failure_state": np.random.choice(["deployment_failure", "latency_issue", "data_anomaly"], 8),
-            "reason": ["System detected anomaly"] * 8
-        })
-        issue_data.to_csv("logs/issue_log.csv", index=False)
-    
-    # Sample RL performance
-    if not os.path.exists("logs/rl_performance_log.csv"):
-        rl_data = pd.DataFrame({
-            "timestamp": pd.date_range(start="2024-01-01", periods=12, freq="2D"),
-            "episode": range(1, 13),
-            "reward": np.random.uniform(-1, 1, 12)
-        })
-        rl_data.to_csv("logs/rl_performance_log.csv", index=False)
-    
-    # Initialize telemetry
-    if not os.path.exists("insightflow/telemetry.json"):
-        with open("insightflow/telemetry.json", "w") as f:
-            json.dump([], f)
+# --- Initialize Directories ---
+os.makedirs("logs", exist_ok=True)
+os.makedirs("insightflow", exist_ok=True)
+os.makedirs("dataset", exist_ok=True)
 
-# Initialize sample data
-init_sample_data()
+# Initialize telemetry if not exists
+if not os.path.exists("insightflow/telemetry.json"):
+    with open("insightflow/telemetry.json", "w") as f:
+        json.dump([], f)
 
 # --- Telemetry Functions ---
 @st.cache_data(ttl=2)
