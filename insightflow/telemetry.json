@@ -89,12 +89,6 @@
     "active_users": 1,
     "system_health": "healthy"
   },
-  {
-    "timestamp": "2025-10-29T16:42:41.460824",
-    "dashboard_mode": "User Mode",
-    "active_users": 1,
-    "system_health": "healthy"
-<<<<<<< HEAD
   },
   {
     "timestamp": "2025-11-01T17:02:50.708282",
@@ -113,7 +107,5 @@
     "dashboard_mode": "Developer Mode",
     "active_users": 1,
     "system_health": "healthy"
-=======
->>>>>>> bf5d865764ae1ecce39c2ccfe2ddcbe7ec5dd88c
   }
 ]
