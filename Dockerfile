@@ -9,6 +9,6 @@ COPY . .
 
 RUN mkdir -p logs insightflow
 
-EXPOSE 8501 8080
+EXPOSE 8501
 
-CMD ["python", "main.py"]
+CMD ["streamlit", "run", "web_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
