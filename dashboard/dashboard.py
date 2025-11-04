@@ -139,6 +139,31 @@ if st.sidebar.button("🚨 Apply Override", type="primary"):
 # --- MAIN DASHBOARD ---
 st.title("🔍 InsightFlow Dashboard")
 
+# Manual Override in Main Area
+with st.expander("🔧 Manual Override Controls", expanded=False):
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        override_action = st.selectbox("Select Action:", ["None", "Force Heal", "Force Restart", "Emergency Stop"])
+    with col2:
+        st.write("")
+        if st.button("🚨 Execute Override", type="primary"):
+            if override_action != "None":
+                override_entry = {
+                    'timestamp': pd.Timestamp.now(),
+                    'event_type': 'Manual Override',
+                    'status': override_action,
+                    'details': 'Main dashboard override'
+                }
+                override_df = pd.DataFrame([override_entry])
+                override_df.to_csv("logs/supervisor_override_log.csv", mode='a', 
+                                  header=not os.path.exists("logs/supervisor_override_log.csv"), index=False)
+                st.success(f"✅ Override '{override_action}' executed!")
+                st.balloons()
+            else:
+                st.warning("Please select an action first")
+    with col3:
+        st.info("Emergency system controls")
+
 # Agent Status Row
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1: st.metric("Deploy Agent", "🟢 Active")
