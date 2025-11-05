@@ -1,23 +1,5 @@
 [
   {
-    "timestamp": "2025-10-29T15:25:13.570885",
-    "event_type": "issue.detected",
-    "data": {
-      "failure_type": "deployment_failure",
-      "reason": "Last deployment attempt failed.",
-      "dataset": "dataset/student_scores.csv"
-    }
-  },
-  {
-    "timestamp": "2025-10-29T15:25:28.676644",
-    "event_type": "deploy.failure",
-    "data": {
-      "dataset": "dataset/student_scores.csv",
-      "response_time": 15029.663801193237,
-      "action_type": "deploy"
-    }
-  },
-  {
     "timestamp": "2025-10-29T15:25:43.803341",
     "event_type": "heal.failure",
     "data": {
@@ -878,6 +860,22 @@
       "state": "deployment_failure",
       "action": "adjust_thresholds",
       "q_value": 0.9067961198
+    }
+  },
+  {
+    "timestamp": "2025-11-05T17:20:23.475377",
+    "event_type": "deploy.success",
+    "data": {
+      "dataset": "dataset/student_scores.csv",
+      "response_time": 16723.5267162323,
+      "action_type": "deploy"
+    }
+  },
+  {
+    "timestamp": "2025-11-05T17:20:25.360737",
+    "event_type": "system.up",
+    "data": {
+      "reason": "Successful deployment"
     }
   }
 ]

@@ -52,3 +52,11 @@ timestamp,event_type,throughput_per_sec,queue_size,total_messages
 2025-11-05T10:32:07.590095,message_published_deployments,0.56,33,34
 2025-11-05T10:32:07.721301,message_published_deployments,0.58,34,35
 2025-11-05T10:32:09.324441,message_published_scaling,0.58,2,36
+2025-11-05T17:06:16.814120,message_published_test_topic,1002.22,1,1
+2025-11-05T17:06:16.817123,message_published_test_topic,0.00,1,1
+2025-11-05T17:06:16.820121,message_published_test_topic,999.12,1,1
+2025-11-05T17:19:46.323767,message_published_test_topic,0.00,1,1
+2025-11-05T17:19:46.327293,message_published_test_topic,0.00,1,1
+2025-11-05T17:19:46.330374,message_published_test_topic,324.61,1,1
+2025-11-05T17:21:14.284493,message_published_test,499.02,1,1
+2025-11-05T17:21:14.316689,message_published_deployments,0.13,1,1

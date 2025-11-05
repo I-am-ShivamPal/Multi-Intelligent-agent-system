@@ -1,0 +1,2 @@
+2025-11-05 17:20:06 | agent.UptimeMonitor | INFO | Agent monitoring started | initial_status=DOWN
+2025-11-05 17:20:25 | agent.UptimeMonitor | INFO | Action: status_change | Status: UP | previous_status=DOWN | reason=Successful deployment

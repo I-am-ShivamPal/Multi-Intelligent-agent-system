@@ -32,5 +32,22 @@
     "timestamp": 1762318158.8995025,
     "iso_timestamp": "2025-11-05T10:19:18.899502",
     "processed": false
+  },
+  {
+    "id": "msg_1762343424593",
+    "sender": "sovereign_bus",
+    "receiver": "mcp_agents",
+    "content": {
+      "event_type": "deploy.success",
+      "data": {
+        "dataset": "dataset/student_scores.csv",
+        "response_time": 16723.5267162323,
+        "action_type": "deploy"
+      },
+      "bus_timestamp": "2025-11-05T17:20:23.475377"
+    },
+    "timestamp": 1762343424.5935023,
+    "iso_timestamp": "2025-11-05T17:20:24.593502",
+    "processed": false
   }
 ]

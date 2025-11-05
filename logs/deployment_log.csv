@@ -148,3 +148,5 @@ timestamp,dataset_changed,status,response_time_ms,action_type
 2025-11-05T10:32:04.551401,3,success,2896,Agent-3 deployment #12
 2025-11-05T10:32:07.576096,1,failure,4919,Agent-1 deployment #11
 2025-11-05T10:32:07.716030,2,failure,2814,Agent-2 deployment #11
+2025-11-05T17:20:23.374492,dataset/student_scores.csv,success,16723.53,deploy
+2025-11-05T17:21:14.289499,1,success,3544,Agent-1 deployment #1

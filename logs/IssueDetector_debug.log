@@ -1,0 +1,2 @@
+2025-11-05 17:20:06 | agent.IssueDetector | INFO | Initialized IssueDetector
+2025-11-05 17:20:06 | agent.IssueDetector | INFO | Agent configured | latency_threshold=16000 | score_threshold=40
