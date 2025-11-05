@@ -248,10 +248,21 @@ def simulate_data_change(dataset_path, force_anomaly=False):
         if not os.path.exists(dataset_path):
             raise FileNotFoundError(f"Dataset '{dataset_path}' not found. Please create it first.")
 
-        shutil.copyfile(dataset_path, f"{dataset_path}.bak")
-        print(f"  -> Created backup: {dataset_path}.bak")
+        # Enhanced error handling for file operations
+        try:
+            shutil.copyfile(dataset_path, f"{dataset_path}.bak")
+            print(f"  -> Created backup: {dataset_path}.bak")
+        except (PermissionError, OSError) as e:
+            print(f"  -> Warning: Could not create backup: {e}")
 
-        df = pd.read_csv(dataset_path)
+        try:
+            df = pd.read_csv(dataset_path)
+        except (pd.errors.EmptyDataError, pd.errors.ParserError) as e:
+            print(f"  -> Error: Corrupted CSV file: {e}")
+            return
+        except UnicodeDecodeError as e:
+            print(f"  -> Error: File encoding issue: {e}")
+            return
 
         if "student_scores" in dataset_path:
             # Add multiple low-score rows to guarantee the average drops below the threshold.
@@ -293,11 +304,17 @@ def simulate_data_change(dataset_path, force_anomaly=False):
             df = pd.concat([df, pd.DataFrame(new_row)], ignore_index=True)
             print(f"  -> Added new patient health record. {'(ANOMALY FORCED)' if force_anomaly else ''}")
 
-        df.to_csv(dataset_path, index=False)
-        print(f"  -> Saved new data to '{dataset_path}'.")
+        try:
+            df.to_csv(dataset_path, index=False)
+            print(f"  -> Saved new data to '{dataset_path}'.")
+        except (PermissionError, OSError) as e:
+            print(f"  -> Error: Could not save file: {e}")
+            return
 
-    except Exception as e:
+    except (FileNotFoundError, PermissionError) as e:
         print(f"Error simulating data change: {e}")
+    except Exception as e:
+        print(f"Unexpected error in data simulation: {e}")
 
 
 def trigger_dashboard_deployment(timeout=15, should_fail=False, failure_type=None):
@@ -325,16 +342,27 @@ def trigger_dashboard_deployment(timeout=15, should_fail=False, failure_type=Non
     start_time = time.time()
     try:
         command = ["streamlit", "run", "dashboard/dashboard.py", "--server.runOnSave", "false"]
-        process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except (FileNotFoundError, PermissionError) as e:
+            print(f"  -> Error: Could not start process: {e}")
+            return "failure", 2000
+        
         time.sleep(timeout)
         if process.poll() is None:
             status = "success"
         else:
             status = "failure" # The app crashed (likely due to the bad data anomaly)
+    except Exception as e:
+        print(f"  -> Deployment error: {e}")
+        status = "failure"
     finally:
         if process and process.poll() is None:
-            process.terminate()
-            process.wait(timeout=5)
+            try:
+                process.terminate()
+                process.wait(timeout=5)
+            except Exception as e:
+                print(f"  -> Warning: Could not terminate process: {e}")
     end_time = time.time()
     return status, (end_time - start_time) * 1000
 

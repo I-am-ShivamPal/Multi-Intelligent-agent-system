@@ -312,47 +312,84 @@ class IssueDetector:
             # === 1️⃣ Data-based anomaly detection ===
             if os.path.exists(self.data_file):
                 if "student_scores" in self.data_file:
-                    df = pd.read_csv(self.data_file)
+                    try:
+                        df = pd.read_csv(self.data_file)
+                    except (pd.errors.EmptyDataError, pd.errors.ParserError, UnicodeDecodeError) as e:
+                        return "no_failure", f"Data file corrupted: {e}"
+                    except PermissionError as e:
+                        return "no_failure", f"Data file access denied: {e}"
+                    
                     if not df.empty and "score" in df.columns:
-                        avg_score = df["score"].mean()
-                        if avg_score < self.low_score_threshold:
-                            state, reason = "anomaly_score", f"Low student performance (avg={avg_score:.2f})"
-                            self._log_issue(state, reason)
-                            return state, reason
+                        try:
+                            avg_score = pd.to_numeric(df["score"], errors='coerce').mean()
+                            if pd.isna(avg_score):
+                                return "no_failure", "Invalid score data format"
+                            if avg_score < self.low_score_threshold:
+                                state, reason = "anomaly_score", f"Low student performance (avg={avg_score:.2f})"
+                                self._log_issue(state, reason)
+                                return state, reason
+                        except Exception as e:
+                            return "no_failure", f"Score calculation error: {e}"
 
                 elif "patient_health" in self.data_file:
-                    df = pd.read_csv(self.data_file)
+                    try:
+                        df = pd.read_csv(self.data_file)
+                    except (pd.errors.EmptyDataError, pd.errors.ParserError, UnicodeDecodeError) as e:
+                        return "no_failure", f"Health data file corrupted: {e}"
+                    except PermissionError as e:
+                        return "no_failure", f"Health data access denied: {e}"
+                    
                     if not df.empty:
-                        hr = df.iloc[-1].get("heart_rate", 0)
-                        o2 = df.iloc[-1].get("oxygen_level", 100)
-                        if hr > self.high_hr_threshold:
-                            state, reason = "anomaly_health", f"High heart rate detected ({hr})."
-                            self._log_issue(state, reason)
-                            return state, reason
-                        if o2 < self.low_o2_threshold:
-                            state, reason = "anomaly_health", f"Low oxygen detected ({o2})."
-                            self._log_issue(state, reason)
-                            return state, reason
+                        try:
+                            last_row = df.iloc[-1]
+                            hr = pd.to_numeric(last_row.get("heart_rate", 0), errors='coerce')
+                            o2 = pd.to_numeric(last_row.get("oxygen_level", 100), errors='coerce')
+                            
+                            if pd.isna(hr) or pd.isna(o2):
+                                return "no_failure", "Invalid health data format"
+                            
+                            if hr > self.high_hr_threshold:
+                                state, reason = "anomaly_health", f"High heart rate detected ({hr})."
+                                self._log_issue(state, reason)
+                                return state, reason
+                            if o2 < self.low_o2_threshold:
+                                state, reason = "anomaly_health", f"Low oxygen detected ({o2})."
+                                self._log_issue(state, reason)
+                                return state, reason
+                        except Exception as e:
+                            return "no_failure", f"Health data processing error: {e}"
 
             # === 2️⃣ Deployment-based issue detection ===
             if os.path.exists(self.log_file):
-                df = pd.read_csv(self.log_file)
+                try:
+                    df = pd.read_csv(self.log_file)
+                except (pd.errors.EmptyDataError, pd.errors.ParserError, UnicodeDecodeError) as e:
+                    return "no_failure", f"Deployment log corrupted: {e}"
+                except PermissionError as e:
+                    return "no_failure", f"Deployment log access denied: {e}"
+                
                 if not df.empty:
-                    last = df.iloc[-1]
-                    status = str(last.get("status", "")).lower().strip()
-                    rt = pd.to_numeric(last.get("response_time_ms"), errors="coerce")
-                    if status == "failure":
-                        state, reason = "deployment_failure", "Last deployment attempt failed."
-                        self._log_issue(state, reason)
-                        return state, reason
-                    if pd.notna(rt) and rt > self.latency_threshold_ms:
-                        state, reason = "latency_issue", f"High latency detected: {rt:.2f} ms."
-                        self._log_issue(state, reason)
-                        return state, reason
+                    try:
+                        last = df.iloc[-1]
+                        status = str(last.get("status", "")).lower().strip()
+                        rt = pd.to_numeric(last.get("response_time_ms"), errors="coerce")
+                        
+                        if status == "failure":
+                            state, reason = "deployment_failure", "Last deployment attempt failed."
+                            self._log_issue(state, reason)
+                            return state, reason
+                        if pd.notna(rt) and rt > self.latency_threshold_ms:
+                            state, reason = "latency_issue", f"High latency detected: {rt:.2f} ms."
+                            self._log_issue(state, reason)
+                            return state, reason
+                    except Exception as e:
+                        return "no_failure", f"Deployment log processing error: {e}"
 
             return "no_failure", "No issues detected."
 
         except (FileNotFoundError, pd.errors.EmptyDataError):
             return "no_failure", "Log or data file not found or empty."
+        except PermissionError as e:
+            return "no_failure", f"File access permission denied: {e}"
         except Exception as e:
-            return "no_failure", f"Error in IssueDetector: {e}"
+            return "no_failure", f"Unexpected error in IssueDetector: {e}"
