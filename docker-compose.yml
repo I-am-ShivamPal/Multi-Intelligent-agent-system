@@ -10,6 +10,7 @@ services:
       - DASHBOARD_AUTO_REFRESH=true
     volumes:
       - ./logs:/app/logs
+      - ./dataset:/app/dataset
       - ./insightflow:/app/insightflow
     command: streamlit run dashboard/dashboard.py --server.port=8501 --server.address=0.0.0.0
     networks:
