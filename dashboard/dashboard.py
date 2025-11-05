@@ -174,9 +174,11 @@ with col3: st.metric("Auto Heal", "🔵 Ready")
 with col4: st.metric("RL Optimizer", "🟠 Learning")
 with col5: st.metric("Realtime Bus", "🟢 Online")
 
-# Auto refresh
+# Auto refresh with performance consideration
 if auto_refresh:
     time.sleep(5)
+    # Clear cache before refresh to ensure fresh data
+    st.cache_data.clear()
     st.rerun()
 
 if st.button("🔄 Manual Refresh"):
@@ -436,34 +438,61 @@ with tab5:
     if view_mode == "Developer Mode":
         st.header("📂 Raw Data Logs")
         
-        # Telemetry
-        with st.expander("Recent Telemetry"):
-            telemetry = load_telemetry()
-            if telemetry:
-                for entry in telemetry[-5:]:
-                    st.json(entry)
-            else:
-                st.info("No telemetry data")
-        
-        # All logs
-        log_sections = {
+        # Log file selector
+        log_files = {
             "Deployment Log": deploy_log_df,
-            "Uptime Log": uptime_df,
             "Healing Log": healing_log_df,
             "Issue Log": issue_log_df,
             "RL Performance": reward_trend_df,
             "User Feedback": feedback_df,
-            "Supervisor Overrides": supervisor_override_df
+            "Supervisor Override": supervisor_override_df,
+            "Performance Log": performance_log_df
         }
         
-        for name, df in log_sections.items():
-            with st.expander(f"Show {name}"):
-                if not df.empty:
-                    st.dataframe(df.tail(10), use_container_width=True)
-                else:
-                    st.info(f"No data in {name}")
+        selected_log = st.selectbox("Select Log File:", list(log_files.keys()))
+        
+        if not log_files[selected_log].empty:
+            st.subheader(f"{selected_log} Data")
+            
+            # Pagination for large datasets
+            df = log_files[selected_log]
+            total_rows = len(df)
+            
+            if total_rows > 100:
+                st.info(f"Large dataset detected ({total_rows} rows). Showing paginated view.")
+                
+                # Pagination controls
+                col1, col2, col3 = st.columns([1, 2, 1])
+                with col1:
+                    page_size = st.selectbox("Rows per page:", [50, 100, 200, 500], index=1)
+                with col2:
+                    max_pages = (total_rows - 1) // page_size + 1
+                    page_num = st.number_input("Page:", min_value=1, max_value=max_pages, value=1)
+                with col3:
+                    st.metric("Total Pages", max_pages)
+                
+                # Calculate slice indices
+                start_idx = (page_num - 1) * page_size
+                end_idx = min(start_idx + page_size, total_rows)
+                
+                # Display paginated data
+                st.dataframe(df.iloc[start_idx:end_idx], use_container_width=True)
+                st.caption(f"Showing rows {start_idx + 1}-{end_idx} of {total_rows}")
+            else:
+                st.dataframe(df, use_container_width=True)
+            
+            # Download button
+            csv = df.to_csv(index=False)
+            st.download_button(
+                label=f"Download {selected_log} CSV",
+                data=csv,
+                file_name=f"{selected_log.lower().replace(' ', '_')}.csv",
+                mime="text/csv"
+            )
+        else:
+            st.info(f"No data available for {selected_log}")
     else:
-        st.info("Raw logs available in Developer Mode")
+        st.info("Raw data logs are available in Developer Mode only.")
 
 # Store telemetry
 store_telemetry({
