@@ -160,5 +160,17 @@
     "dashboard_mode": "Developer Mode",
     "active_users": 1,
     "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-11-05T10:52:11.814124",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
+  },
+  {
+    "timestamp": "2025-11-05T10:58:12.666481",
+    "dashboard_mode": "User Mode",
+    "active_users": 1,
+    "system_health": "healthy"
   }
 ]
