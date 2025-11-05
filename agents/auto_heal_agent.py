@@ -10,8 +10,8 @@ class AutoHealAgent(BaseAgent):
     """A simple agent that can execute healing strategies."""
     def __init__(self, healing_log_file):
         self.strategies = ['retry_deployment', 'restore_previous_version', 'adjust_thresholds']
-        super().__init__(healing_log_file)
-        print("Initialized Auto Heal Agent.")
+        super().__init__(healing_log_file, "AutoHealAgent")
+        self.logger.info("Agent ready", strategies=len(self.strategies))
     
     def get_log_headers(self) -> list:
         return ["timestamp", "strategy", "status", "response_time_ms"]
@@ -39,7 +39,7 @@ class AutoHealAgent(BaseAgent):
         Executes a specific, chosen healing strategy.
         This allows the RL Trainer to command this agent.
         """
-        print(f"Chosen Strategy: {strategy}")
+        self.logger.info(f"Executing healing strategy", strategy=strategy, dataset=dataset_path)
         status, response_time = "failure", 0
         heal_type = "unknown_strategy"
 
@@ -54,8 +54,11 @@ class AutoHealAgent(BaseAgent):
             heal_type = "heal_adjust"
         
         self._log_healing_attempt(strategy, status, response_time)
+        self.logger.log_action("healing_completed", status, 
+                              strategy=strategy, 
+                              response_time=response_time,
+                              heal_type=heal_type)
         
-        # Return all four values for consistency
         return status, response_time, heal_type, strategy
 
     def _retry_deployment(self):

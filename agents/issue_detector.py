@@ -267,8 +267,10 @@ class IssueDetector(BaseAgent):
         self.high_hr_threshold = config.get("high_heart_rate", 120)
         self.low_o2_threshold = config.get("low_oxygen_level", 95)
         
-        super().__init__(issue_log_file)
-        print("✅ Initialized Issue Detector Agent (Configurable).")
+        super().__init__(issue_log_file, "IssueDetector")
+        self.logger.info("Agent configured", 
+                        latency_threshold=self.latency_threshold_ms,
+                        score_threshold=self.low_score_threshold)
     
     def get_log_headers(self) -> list:
         return ["timestamp", "failure_state", "reason"]
@@ -279,7 +281,7 @@ class IssueDetector(BaseAgent):
     def _log_issue(self, state, reason):
         """Log detected issue and publish to bus."""
         self._log_entry({"failure_state": state, "reason": reason})
-        print(f"Issue Detector: Logged issue -> {state}: {reason}")
+        self.logger.log_action("issue_detected", state, reason=reason, dataset=self.data_file)
         
         bus.publish("issue.detected", {
             "failure_type": state,

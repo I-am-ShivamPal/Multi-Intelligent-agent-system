@@ -2,21 +2,17 @@ import os
 import csv
 import datetime
 from core.sovereign_bus import bus
+from core.logger import AgentLogger
 
 class UptimeMonitor:
     """Maintains a synthetic uptime/downtime timeline."""
     def __init__(self, timeline_file):
-        """
-        Initializes the agent with the full path to the uptime timeline file.
-        Args:
-            timeline_file (str): The path to the uptime log file (e.g., 'logs/uptime_log.csv').
-        """
         self.timeline_file = timeline_file
+        self.logger = AgentLogger("UptimeMonitor")
         self.last_status = self._get_initial_status()
         if self.last_status is None:
-            print(f"Initialized uptime timeline: {self.timeline_file}")
             self.update_status("UP", "Initial status check")
-        print("Initialized Uptime Monitor Agent.")
+        self.logger.info("Agent monitoring started", initial_status=self.last_status or "UP")
 
     def _get_initial_status(self):
         """Reads the last known status from the timeline file."""
@@ -48,11 +44,11 @@ class UptimeMonitor:
             with open(self.timeline_file, 'a', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow([timestamp, new_status, event_description])
-            print(f"Uptime Monitor: Service status changed to {new_status}. Reason: {event_description}")
+            self.logger.log_action("status_change", new_status, 
+                                 previous_status=self.last_status,
+                                 reason=event_description)
             self.last_status = new_status
-            
-            # Publish to bus
             bus.publish(f"system.{new_status.lower()}", {"reason": event_description})
         else:
-            print(f"Uptime Monitor: Service status remains {self.last_status}.")
+            self.logger.debug("Status unchanged", status=self.last_status)
 
