@@ -4,30 +4,28 @@ import csv
 import datetime
 import shutil
 from utils import trigger_dashboard_deployment
+from core.base_agent import BaseAgent
 
-class AutoHealAgent:
+class AutoHealAgent(BaseAgent):
     """A simple agent that can execute healing strategies."""
     def __init__(self, healing_log_file):
-        """
-        Initializes the agent with the path to its log file.
-        """
-        self.healing_log_file = healing_log_file
         self.strategies = ['retry_deployment', 'restore_previous_version', 'adjust_thresholds']
-        self._initialize_log_file()
+        super().__init__(healing_log_file)
         print("Initialized Auto Heal Agent.")
-
-    def _initialize_log_file(self):
-        """Creates the healing log file with a header if it doesn't exist."""
-        os.makedirs(os.path.dirname(self.healing_log_file), exist_ok=True)
-        if not os.path.exists(self.healing_log_file):
-            with open(self.healing_log_file, 'w', newline='') as f:
-                f.write("timestamp,strategy,status,response_time_ms\n")
+    
+    def get_log_headers(self) -> list:
+        return ["timestamp", "strategy", "status", "response_time_ms"]
+    
+    def run(self):
+        pass  # Called by external systems
 
     def _log_healing_attempt(self, strategy, status, response_time):
-        """Logs the outcome of a single healing attempt."""
-        timestamp = datetime.datetime.now().isoformat()
-        with open(self.healing_log_file, 'a', newline='') as f:
-            csv.writer(f).writerow([timestamp, strategy, status, round(response_time, 2)])
+        """Log healing attempt using base class method."""
+        self._log_entry({
+            "strategy": strategy,
+            "status": status,
+            "response_time_ms": round(response_time, 2)
+        })
 
     def attempt_healing(self, state, dataset_path):
         """Chooses a random healing strategy and executes it."""
