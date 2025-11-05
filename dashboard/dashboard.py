@@ -37,7 +37,7 @@ if not os.path.exists("insightflow/telemetry.json"):
         json.dump([], f)
 
 # --- Telemetry Functions ---
-@st.cache_data(ttl=2)
+@st.cache_data(ttl=10)
 def load_telemetry():
     try:
         with open("insightflow/telemetry.json", 'r') as f:
@@ -57,7 +57,7 @@ def store_telemetry(entry):
         pass
 
 # --- Data Loading ---
-@st.cache_data(ttl=5)
+@st.cache_data(ttl=15)
 def load_data():
     data = {}
     files = {
