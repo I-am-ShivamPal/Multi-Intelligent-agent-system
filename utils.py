@@ -324,7 +324,7 @@ def trigger_dashboard_deployment(timeout=15, should_fail=False, failure_type=Non
     status, process = "failure", None
     start_time = time.time()
     try:
-        command = ["streamlit", "run", "app_dashboard.py", "--server.runOnSave", "false"]
+        command = ["streamlit", "run", "dashboard/dashboard.py", "--server.runOnSave", "false"]
         process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(timeout)
         if process.poll() is None:
