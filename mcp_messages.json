@@ -1,0 +1,36 @@
+[
+  {
+    "id": "msg_1762318143340",
+    "sender": "sovereign_bus",
+    "receiver": "mcp_agents",
+    "content": {
+      "event_type": "issue.detected",
+      "data": {
+        "failure_type": "deployment_failure",
+        "reason": "Last deployment attempt failed.",
+        "dataset": "dataset/student_scores.csv"
+      },
+      "bus_timestamp": "2025-11-05T10:19:03.291041"
+    },
+    "timestamp": 1762318143.3408837,
+    "iso_timestamp": "2025-11-05T10:19:03.340883",
+    "processed": false
+  },
+  {
+    "id": "msg_1762318158899",
+    "sender": "sovereign_bus",
+    "receiver": "mcp_agents",
+    "content": {
+      "event_type": "deploy.failure",
+      "data": {
+        "dataset": "dataset/student_scores.csv",
+        "response_time": 15434.621572494507,
+        "action_type": "deploy"
+      },
+      "bus_timestamp": "2025-11-05T10:19:18.782761"
+    },
+    "timestamp": 1762318158.8995025,
+    "iso_timestamp": "2025-11-05T10:19:18.899502",
+    "processed": false
+  }
+]

@@ -854,5 +854,27 @@
       "action_type": "deploy"
     },
     "source": "sovereign_bus"
+  },
+  {
+    "context_id": "ctx_20251105_101903_161",
+    "timestamp": "2025-11-05T10:19:03.291041",
+    "event_type": "issue.detected",
+    "payload": {
+      "failure_type": "deployment_failure",
+      "reason": "Last deployment attempt failed.",
+      "dataset": "dataset/student_scores.csv"
+    },
+    "source": "sovereign_bus"
+  },
+  {
+    "context_id": "ctx_20251105_101918_911",
+    "timestamp": "2025-11-05T10:19:18.782761",
+    "event_type": "deploy.failure",
+    "payload": {
+      "dataset": "dataset/student_scores.csv",
+      "response_time": 15434.621572494507,
+      "action_type": "deploy"
+    },
+    "source": "sovereign_bus"
   }
 ]

@@ -164,7 +164,7 @@ with st.expander("🔧 Manual Override Controls", expanded=False):
     with col3:
         st.info("Emergency system controls")
 
-# Agent Status Row
+# Agent Status Row 
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1: st.metric("Deploy Agent", "🟢 Active")
 with col2: st.metric("Issue Monitor", "🟡 Watching")
