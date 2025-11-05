@@ -273,7 +273,7 @@ class IssueDetector:
         self.issue_log_file = issue_log_file
 
         # ✅ Load thresholds dynamically
-        self.latency_threshold_ms = config.get("latency_ms", 24000)
+        self.latency_threshold_ms = config.get("latency_ms", 16000)
         self.low_score_threshold = config.get("low_score_avg", 40)
         self.high_hr_threshold = config.get("high_heart_rate", 120)
         self.low_o2_threshold = config.get("low_oxygen_level", 95)
