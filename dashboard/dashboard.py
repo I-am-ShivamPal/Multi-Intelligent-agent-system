@@ -70,7 +70,8 @@ def load_data():
         "feedback": "logs/user_feedback_log.csv",
         "issue_log": "logs/issue_log.csv",
         "reward_trend": "logs/rl_performance_log.csv",
-        "supervisor_override": "logs/supervisor_override_log.csv"
+        "supervisor_override": "logs/supervisor_override_log.csv",
+        "performance_log": "logs/performance_log.csv"
     }
     for key, filename in files.items():
         if os.path.exists(filename):
@@ -98,9 +99,10 @@ feedback_df = data_frames["feedback"]
 issue_log_df = data_frames["issue_log"]
 reward_trend_df = data_frames.get("reward_trend", pd.DataFrame())
 supervisor_override_df = data_frames.get("supervisor_override", pd.DataFrame())
+performance_log_df = data_frames.get("performance_log", pd.DataFrame())
 
 # Convert timestamps
-for df in [scores_df, health_df, deploy_log_df, uptime_df, healing_log_df, feedback_df, issue_log_df, reward_trend_df, supervisor_override_df]:
+for df in [scores_df, health_df, deploy_log_df, uptime_df, healing_log_df, feedback_df, issue_log_df, reward_trend_df, supervisor_override_df, performance_log_df]:
     if not df.empty and 'timestamp' in df.columns:
         df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
 
@@ -166,11 +168,11 @@ with st.expander("🔧 Manual Override Controls", expanded=False):
 
 # Agent Status Row 
 col1, col2, col3, col4, col5 = st.columns(5)
-with col1: st.metric("Deploy Agent", "🟢 Active")
+with col1: st.metric("Deploy Agents", "🟢 3x Active")
 with col2: st.metric("Issue Monitor", "🟡 Watching")
 with col3: st.metric("Auto Heal", "🔵 Ready")
 with col4: st.metric("RL Optimizer", "🟠 Learning")
-with col5: st.metric("Sovereign Bus", "🟢 Online")
+with col5: st.metric("Realtime Bus", "🟢 Online")
 
 # Auto refresh
 if auto_refresh:
@@ -198,12 +200,12 @@ with insight_col2:
         st.metric("Success Rate", "N/A")
 
 with insight_col3:
-    st.subheader("RL Rewards")
-    if not reward_trend_df.empty:
-        avg_reward = reward_trend_df['reward'].mean()
-        st.metric("Avg Reward", f"{avg_reward:.2f}")
+    st.subheader("Bus Throughput")
+    if not performance_log_df.empty:
+        avg_throughput = performance_log_df['throughput_per_sec'].astype(float).mean()
+        st.metric("Msg/Sec", f"{avg_throughput:.1f}")
     else:
-        st.metric("Avg Reward", "N/A")
+        st.metric("Msg/Sec", "N/A")
 
 # Main Tabs
 if view_mode == "Developer Mode":

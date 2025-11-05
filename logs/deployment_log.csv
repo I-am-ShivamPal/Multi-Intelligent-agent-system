@@ -113,3 +113,38 @@ timestamp,dataset_changed,status,response_time_ms,action_type
 2025-10-29T16:07:11.644408,dataset/student_scores.csv,failure,15023.04,deploy
 2025-10-29T16:17:00.646467,dataset/student_scores.csv,failure,15201.73,deploy
 2025-11-05T10:19:18.778365,dataset/student_scores.csv,failure,15434.62,deploy
+2025-11-05T10:30:25.818305,1,success,3342,Agent-1 deployment #1
+2025-11-05T10:31:09.229358,2,success,4616,Agent-2 deployment #1
+2025-11-05T10:31:09.223898,1,success,4348,Agent-1 deployment #1
+2025-11-05T10:31:09.239765,3,success,3654,Agent-3 deployment #1
+2025-11-05T10:31:14.997005,1,success,2164,Agent-1 deployment #2
+2025-11-05T10:31:15.211230,3,success,3585,Agent-3 deployment #2
+2025-11-05T10:31:16.372931,2,success,4287,Agent-2 deployment #2
+2025-11-05T10:31:20.830303,1,success,3614,Agent-1 deployment #3
+2025-11-05T10:31:22.122734,3,success,3888,Agent-3 deployment #3
+2025-11-05T10:31:23.577927,2,success,2368,Agent-2 deployment #3
+2025-11-05T10:31:26.368387,1,success,2523,Agent-1 deployment #4
+2025-11-05T10:31:27.252614,3,success,1863,Agent-3 deployment #4
+2025-11-05T10:31:29.726058,3,success,2212,Agent-3 deployment #5
+2025-11-05T10:31:31.465978,2,success,4166,Agent-2 deployment #4
+2025-11-05T10:31:33.477993,1,success,4058,Agent-1 deployment #5
+2025-11-05T10:31:34.671582,3,failure,3438,Agent-3 deployment #6
+2025-11-05T10:31:36.624816,2,success,4980,Agent-2 deployment #5
+2025-11-05T10:31:38.954264,3,success,1389,Agent-3 deployment #7
+2025-11-05T10:31:39.422448,1,success,2745,Agent-1 deployment #6
+2025-11-05T10:31:41.246005,2,success,3807,Agent-2 deployment #6
+2025-11-05T10:31:44.743626,2,success,1575,Agent-2 deployment #7
+2025-11-05T10:31:45.004538,3,success,4566,Agent-3 deployment #8
+2025-11-05T10:31:46.098188,1,success,2185,Agent-1 deployment #7
+2025-11-05T10:31:48.204874,1,failure,1992,Agent-1 deployment #8
+2025-11-05T10:31:50.500837,2,success,2177,Agent-2 deployment #8
+2025-11-05T10:31:50.616781,3,success,1378,Agent-3 deployment #9
+2025-11-05T10:31:54.405861,1,success,4352,Agent-1 deployment #9
+2025-11-05T10:31:56.465070,2,success,3524,Agent-2 deployment #9
+2025-11-05T10:31:57.847726,3,success,1710,Agent-3 deployment #10
+2025-11-05T10:31:59.607887,1,success,3909,Agent-1 deployment #10
+2025-11-05T10:32:00.212967,3,success,3032,Agent-3 deployment #11
+2025-11-05T10:32:04.447908,2,success,1508,Agent-2 deployment #10
+2025-11-05T10:32:04.551401,3,success,2896,Agent-3 deployment #12
+2025-11-05T10:32:07.576096,1,failure,4919,Agent-1 deployment #11
+2025-11-05T10:32:07.716030,2,failure,2814,Agent-2 deployment #11
